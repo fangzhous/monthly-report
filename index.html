@@ -3,227 +3,124 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>2026年4月流水数据大屏</title>
-<script src="https://unpkg.com/echarts@5.4.3/dist/echarts.min.js"></script>
+<title>服务中心流水数据大屏</title>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { background: #020b18; color: #e0f0ff; font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif; }
-.header { display: flex; align-items: center; justify-content: space-between; padding: 0 40px; height: 72px; background: linear-gradient(90deg, #060f1e 0%, #0b2040 50%, #060f1e 100%); border-bottom: 1px solid #1a3d6b; position: relative; }
-.header::after { content: ''; position: absolute; bottom: -2px; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, #00c4f5, #0077cc, transparent); }
-.header-title { font-size: 22px; font-weight: 700; background: linear-gradient(90deg, #00d4ff, #a0e8ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: 2px; }
-.header-sub { font-size: 12px; color: #5a8aaa; margin-top: 3px; }
-.header-right { text-align: right; }
-.header-date { font-size: 12px; color: #4a7a9a; }
-.header-status { font-size: 13px; color: #00e5a0; margin-top: 3px; font-weight: 500; }
-
-.main { padding: 24px 28px 32px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
-
-/* KPI 区块 */
-.kpi-row { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
-.kpi-card { background: linear-gradient(145deg, #0a1f38 0%, #0f2850 100%); border: 1px solid #1e3d6b; border-radius: 12px; padding: 22px 24px 18px; position: relative; overflow: hidden; }
-.kpi-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; border-radius: 12px 12px 0 0; }
-.kpi-card:nth-child(1)::before { background: linear-gradient(90deg, #00d4ff, #0066cc); }
-.kpi-card:nth-child(2)::before { background: linear-gradient(90deg, #00e5a0, #009966); }
-.kpi-card:nth-child(3)::before { background: linear-gradient(90deg, #ff9500, #cc6000); }
-.kpi-card:nth-child(4)::before { background: linear-gradient(90deg, #a78bfa, #7c3aed); }
-.kpi-badge { display: inline-block; font-size: 10px; padding: 2px 8px; border-radius: 10px; margin-bottom: 8px; font-weight: 600; letter-spacing: 0.5px; }
-.kpi-badge.b1 { background: rgba(0,212,255,0.12); color: #00d4ff; border: 1px solid rgba(0,212,255,0.25); }
-.kpi-badge.b2 { background: rgba(0,229,160,0.12); color: #00e5a0; border: 1px solid rgba(0,229,160,0.25); }
-.kpi-badge.b3 { background: rgba(255,149,0,0.12); color: #ff9500; border: 1px solid rgba(255,149,0,0.25); }
-.kpi-badge.b4 { background: rgba(167,139,250,0.12); color: #a78bfa; border: 1px solid rgba(167,139,250,0.25); }
-.kpi-label { font-size: 12px; color: #5a8aaa; margin-bottom: 10px; letter-spacing: 0.5px; }
-.kpi-value { font-size: 28px; font-weight: 800; line-height: 1; }
-.kpi-value small { font-size: 14px; font-weight: 400; margin-left: 2px; }
+body { background: #020b18; color: #e0f0ff; font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif; min-height: 100vh; }
+.header { display: flex; align-items: center; justify-content: space-between; padding: 0 32px; height: 64px; background: linear-gradient(90deg, #0a1f3a 0%, #0d2e52 50%, #0a1f3a 100%); border-bottom: 1px solid #1a4a7a; position: relative; }
+.header::after { content: ''; position: absolute; bottom: -2px; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, #00d4ff, #00a8ff, transparent); }
+.header-title { font-size: 22px; font-weight: 700; letter-spacing: 2px; background: linear-gradient(90deg, #00d4ff, #a0e8ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.header-sub { font-size: 12px; color: #6baed6; margin-top: 3px; }
+.header-right { font-size: 12px; color: #4a8aaa; text-align: right; }
+.header-right .alert { color: #00e5a0; margin-top: 3px; }
+.main { padding: 16px 18px; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+.kpi-row { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+.kpi-card { background: linear-gradient(135deg, #071828 0%, #0c2340 100%); border: 1px solid #1a3a5c; border-radius: 8px; padding: 16px 20px; position: relative; overflow: hidden; }
+.kpi-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; }
+.kpi-card:nth-child(1)::before { background: linear-gradient(90deg,#00d4ff,#0088cc); }
+.kpi-card:nth-child(2)::before { background: linear-gradient(90deg,#00e5a0,#009966); }
+.kpi-card:nth-child(3)::before { background: linear-gradient(90deg,#ff9500,#cc6000); }
+.kpi-card:nth-child(4)::before { background: linear-gradient(90deg,#a78bfa,#7c3aed); }
+.kpi-label { font-size: 12px; color: #6baed6; margin-bottom: 8px; letter-spacing: 0.5px; }
+.kpi-value { font-size: 26px; font-weight: 700; line-height: 1.1; }
+.kpi-value small { font-size: 14px; font-weight: 400; }
 .kpi-card:nth-child(1) .kpi-value { color: #00d4ff; }
 .kpi-card:nth-child(2) .kpi-value { color: #00e5a0; }
 .kpi-card:nth-child(3) .kpi-value { color: #ff9500; }
 .kpi-card:nth-child(4) .kpi-value { color: #a78bfa; }
-.kpi-detail { font-size: 12px; color: #3a6a8a; margin-top: 10px; line-height: 1.6; }
-.kpi-detail strong { color: #6a9aba; font-weight: 500; }
-.kpi-tags { margin-top: 12px; display: flex; gap: 6px; flex-wrap: wrap; }
-.kpi-tag { font-size: 10px; color: #4a7a9a; background: rgba(0,180,255,0.06); padding: 3px 8px; border-radius: 4px; border: 1px solid rgba(0,180,255,0.12); }
-
-/* 通用卡片 */
-.card { background: linear-gradient(145deg, #091828 0%, #0d2448 100%); border: 1px solid #183460; border-radius: 12px; padding: 20px 22px 16px; position: relative; overflow: hidden; }
-.card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, #00c4f5, #0055bb); border-radius: 12px 12px 0 0; }
-.card-title { font-size: 13px; color: #6ab0d8; letter-spacing: 1px; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; font-weight: 600; }
-.card-title::before { content: ''; display: inline-block; width: 3px; height: 14px; background: #00c4f5; border-radius: 2px; }
-
+.kpi-sub { font-size: 11px; color: #4a7a9a; margin-top: 5px; }
+.kpi-tags { margin-top: 8px; display: flex; gap: 5px; flex-wrap: wrap; }
+.kpi-tag { font-size: 10px; color: #5a9aba; background: rgba(0,180,255,0.07); padding: 2px 6px; border-radius: 3px; border: 1px solid rgba(0,180,255,0.15); }
+.card { background: linear-gradient(135deg, #071828 0%, #0c2340 100%); border: 1px solid #1a3a5c; border-radius: 8px; padding: 12px 14px; position: relative; overflow: hidden; }
+.card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, #00d4ff, #0066cc); }
+.card-title { font-size: 12px; color: #6baed6; letter-spacing: 1px; margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
+.card-title::before { content: ''; display: inline-block; width: 3px; height: 12px; background: #00d4ff; border-radius: 2px; }
 .col-full { grid-column: 1 / -1; }
 .col-2 { grid-column: span 2; }
-
-.chart { width: 100%; height: 260px; }
-.chart-xl { width: 100%; height: 520px; }
-
-/* 进度条 */
-.prog-list { display: flex; flex-direction: column; gap: 18px; padding-top: 4px; }
-.prog-header { display: flex; justify-content: space-between; margin-bottom: 6px; }
-.prog-label { font-size: 12px; color: #7ab0c8; font-weight: 500; }
-.prog-val { font-size: 12px; font-weight: 700; color: #00d4ff; }
-.prog-bg { height: 8px; background: rgba(255,255,255,0.05); border-radius: 5px; overflow: hidden; margin-bottom: 4px; }
-.prog-fill { height: 100%; border-radius: 5px; transition: width 1.4s ease; }
-.prog-meta { font-size: 11px; color: #3a6a8a; }
-
-/* 排名表格 */
-.rank-table { width: 100%; border-collapse: collapse; }
-.rank-table thead th { color: #3a6a8a; font-weight: 500; padding: 6px 8px; border-bottom: 1px solid #1a3d6b; text-align: left; font-size: 11px; }
+.chart { width: 100%; height: 240px; }
+.chart-xl { width: 100%; height: 320px; }
+.prog-list { display: flex; flex-direction: column; gap: 14px; }
+.prog-header { display: flex; justify-content: space-between; margin-bottom: 4px; }
+.prog-label { font-size: 12px; color: #8ab8d8; }
+.prog-val { font-size: 12px; color: #00d4ff; font-weight: 600; }
+.prog-bg { height: 8px; background: rgba(255,255,255,0.06); border-radius: 4px; overflow: hidden; }
+.prog-fill { height: 100%; border-radius: 4px; transition: width 1.2s ease; }
+.prog-meta { font-size: 10px; color: #3a7a9a; margin-top: 3px; }
+.rank-table { width: 100%; border-collapse: collapse; font-size: 11px; }
+.rank-table thead th { color: #4a7a9a; font-weight: 400; padding: 4px 6px; border-bottom: 1px solid #1a3a5c; text-align: left; }
 .rank-table thead th:last-child { text-align: right; }
-.rank-table tbody tr:hover td { background: rgba(0,180,255,0.04); }
-.rank-table tbody td { padding: 7px 8px; color: #8ab8d8; border-bottom: 1px solid rgba(26,61,107,0.5); font-size: 12px; transition: background 0.2s; }
-.rank-table tbody td:last-child { text-align: right; color: #00d4ff; font-weight: 600; font-size: 12px; }
-.rank-table tbody tr:nth-child(1) td { color: #ffd700; }
-.rank-table tbody tr:nth-child(2) td { color: #c0c0c0; }
-.rank-table tbody tr:nth-child(3) td { color: #cd7f32; }
-
-.footer { text-align: center; padding: 16px; font-size: 11px; color: #2a4a6a; border-top: 1px solid #0d1f38; }
+.rank-table tbody td { padding: 5px 6px; color: #b0d8f0; border-bottom: 1px solid rgba(26,58,92,0.4); }
+.rank-table tbody td:last-child { text-align: right; color: #00d4ff; font-weight: 600; }
+.footer { text-align: center; padding: 10px; font-size: 11px; color: #2a5a7a; }
 </style>
 </head>
 <body>
-
 <div class="header">
-  <div>
-    <div class="header-title">2026年4月 · 国学团队流水数据大屏</div>
-    <div class="header-sub">实时流水监控 · 目标跟踪 · 分周分析</div>
-  </div>
-  <div class="header-right">
-    <div class="header-date">数据截至 2026-04-19</div>
-    <div class="header-status">⏱ 时间进度 63.3% &nbsp;|&nbsp; 当前完成率 6.3%</div>
-  </div>
+  <div><div class="header-title">服务中心流水数据大屏</div><div class="header-sub">实时流水监控 · 目标跟踪 · 分周分析</div></div>
+  <div class="header-right"><div>数据截至 2026-04-07</div><div class="alert">📈 时间进度 23.3% | 4月进行中 | 完成率 6.63%</div></div>
 </div>
-
 <div class="main">
-
-  <!-- KPI 顶部区域 -->
   <div class="kpi-row">
-    <div class="kpi-card">
-      <div class="kpi-badge b1">📊 4月汇总</div>
-      <div class="kpi-label">总已完成流水</div>
-      <div class="kpi-value">1,955,696<small>元</small></div>
-      <div class="kpi-detail">全月目标 <strong>3,101 万</strong><br>完成率 <strong>6.3%</strong></div>
-    </div>
-    <div class="kpi-card">
-      <div class="kpi-badge b2">👤 马子强</div>
-      <div class="kpi-label">已完成</div>
-      <div class="kpi-value">711,491<small>元</small></div>
-      <div class="kpi-detail">课程类 <strong>475,104</strong><br>实物流水 <strong>236,387</strong></div>
-      <div class="kpi-tags"><span class="kpi-tag">占比 36.4%</span></div>
-    </div>
-    <div class="kpi-card">
-      <div class="kpi-badge b3">👤 陈雅文</div>
-      <div class="kpi-label">已完成</div>
-      <div class="kpi-value">1,080,856<small>元</small></div>
-      <div class="kpi-detail">课程类 <strong>82,818</strong><br>实物流水 <strong>998,038</strong></div>
-      <div class="kpi-tags"><span class="kpi-tag">占比 55.3%</span></div>
-    </div>
-    <div class="kpi-card">
-      <div class="kpi-badge b4">👤 张婧嬿</div>
-      <div class="kpi-label">已完成</div>
-      <div class="kpi-value">163,349<small>元</small></div>
-      <div class="kpi-detail">课程类 <strong>145,814</strong><br>实物流水 <strong>17,535</strong></div>
-      <div class="kpi-tags"><span class="kpi-tag">占比 8.4%</span></div>
-    </div>
+    <div class="kpi-card"><div class="kpi-label">4月累计完成（课程+实物）</div><div class="kpi-value">2,055,491 <small>元</small></div><div class="kpi-sub">全月目标 31,013,961 元 | 完成率 6.63%</div><div class="kpi-tags"><span class="kpi-tag">第1周已填报</span><span class="kpi-tag">2-4周陆续汇总</span></div></div>
+    <div class="kpi-card"><div class="kpi-label">马子强 已完成</div><div class="kpi-value">767,682 <small>元</small></div><div class="kpi-sub">课程类 531,295 | 实物 236,387</div><div class="kpi-tags"><span class="kpi-tag">占比 37.35%</span></div></div>
+    <div class="kpi-card"><div class="kpi-label">陈雅文 已完成</div><div class="kpi-value">1,103,498 <small>元</small></div><div class="kpi-sub">课程类 105,460 | 实物 998,038</div><div class="kpi-tags"><span class="kpi-tag">占比 53.69%</span></div></div>
+    <div class="kpi-card"><div class="kpi-label">张婧嬿 已完成</div><div class="kpi-value">184,311 <small>元</small></div><div class="kpi-sub">课程类 166,776 | 实物 17,535</div><div class="kpi-tags"><span class="kpi-tag">占比 8.97%</span></div></div>
   </div>
-
-  <!-- 部门饼图 -->
-  <div class="card">
-    <div class="card-title">部门已完成流水对比</div>
-    <div class="chart" id="c-dept"></div>
-  </div>
-
-  <!-- 分周柱状图 -->
-  <div class="card">
-    <div class="card-title">分周目标 vs 已完成</div>
-    <div class="chart" id="c-week"></div>
-  </div>
-
-  <!-- 完成率进度条 -->
-  <div class="card">
-    <div class="card-title">各周完成率</div>
-    <div class="prog-list" id="week-prog"></div>
-  </div>
-
-  <!-- 全月课程目标（占两列） -->
-  <div class="card col-2">
-    <div class="card-title">全月课程目标 vs 已完成（元）</div>
-    <div class="chart-xl" id="c-target"></div>
-  </div>
-
-  <!-- TOP10排名 -->
-  <div class="card">
-    <div class="card-title">课程目标 TOP10</div>
-    <div style="overflow-y:auto; max-height:460px">
-      <table class="rank-table">
-        <thead><tr><th>#</th><th>课程名称</th><th>目标（元）</th></tr></thead>
-        <tbody id="rank-body"></tbody>
-      </table>
-    </div>
-  </div>
-
-  <!-- 第一周各课程 -->
-  <div class="card col-full">
-    <div class="card-title">4.7-4.13（第一周）各课程目标流水</div>
-    <div class="chart" id="c-w1"></div>
-  </div>
-
+  <div class="card"><div class="card-title">部门已完成流水对比</div><div class="chart" id="c-dept"></div></div>
+  <div class="card"><div class="card-title">分周目标 vs 已完成</div><div class="chart" id="c-week"></div></div>
+  <div class="card"><div class="card-title">各周完成率</div><div class="prog-list" id="week-prog" style="margin-top:8px"></div></div>
+  <div class="card col-2"><div class="card-title">全月课程目标 vs 已完成流水（元）</div><div class="chart-xl" id="c-target"></div></div>
+  <div class="card"><div class="card-title">课程目标流水 TOP10</div><div style="overflow-y:auto;max-height:340px"><table class="rank-table"><thead><tr><th>#</th><th>课程</th><th>目标（元）</th></tr></thead><tbody id="rank-body"></tbody></table></div></div>
+  <div class="card col-full"><div class="card-title">4.1-4.7（第一周）各课程目标流水</div><div class="chart" id="c-w1"></div></div>
 </div>
-
-<div class="footer">数据来源：月流水进度.xlsx · 锚点数据 · 截至 2026-04-19</div>
-
+<div class="footer">数据来源：月流水进度.xlsx · 锚点 · 截至 2026-04-07</div>
 <script>
-const fmt = v => {
-  if (!v && v !== 0) return '—';
-  if (v >= 1e8) return (v/1e8).toFixed(2)+'亿';
-  if (v >= 1e4) return (v/1e4).toFixed(2)+'万';
-  return Math.round(v).toLocaleString();
-};
+const fmt = v => { if (!v && v !== 0) return '—'; if (v >= 1e8) return (v/1e8).toFixed(2)+'亿'; if (v >= 1e4) return (v/1e4).toFixed(2)+'万'; return Math.round(v).toLocaleString(); };
 const fmtN = v => Math.round(v).toLocaleString('zh-CN');
-const C = {
-  blue:'#00c4f5', green:'#00e5a0', orange:'#ff9500', purple:'#a78bfa',
-  grid:'rgba(20,60,100,0.4)', axis:'#1e4060', lbl:'#4a7a9a',
-  gold:'#ffd700', silver:'#c0c0c0', bronze:'#cd7f32'
-};
+const C = {blue:'#00d4ff', green:'#00e5a0', orange:'#ff9500', purple:'#a78bfa', grid:'rgba(26,74,122,0.35)', axis:'#2a5a7a', lbl:'#5a9aba'};
+const g = (c,d) => new echarts.graphic.LinearGradient(0,0,0,1,[{offset:0,color:c},{offset:1,color:c+(d||'33')}]);
+const gh = (c,d) => new echarts.graphic.LinearGradient(1,0,0,0,[{offset:0,color:c},{offset:1,color:c+(d||'44')}]);
 
-// ========== 4月数据（锚点 2026-04-19）==========
 const deptData = [
-  {name:'马子强', value:711491},
-  {name:'陈雅文', value:1080856},
-  {name:'张婧嬿', value:163349},
+  {name:'马子强', value:767682},
+  {name:'陈雅文', value:1103498},
+  {name:'张婧嬿', value:184311},
 ];
 
 const weekData = [
-  {label:'4.7-4.13',   target:14089307, done:1955696},
-  {label:'4.14-4.19',  target:8869307,  done:0},
-  {label:'4.20-4.26',  target:5359582,  done:0},
-  {label:'4.27-4.30',  target:2695765,  done:0},
+  {label:'4.1-4.7',  target:14089307, done:2055491},
+  {label:'4.8-4.14',target:8869307,  done:0},
+  {label:'4.15-4.21',target:5359582,  done:0},
+  {label:'4.22-4.30',target:2695765,  done:0},
 ];
 
 const courseData = [
-  {name:'朱昱二阶续费',        target:22064087,  done:34340},
-  {name:'玄青命理弟子班',      target:870366,    done:387430},
-  {name:'何咏慧弟子班',        target:1049836,   done:10880},
-  {name:'电商',                target:2482256,   done:1251960},
-  {name:'玄青奇门弟子班',      target:600000,    done:16660},
-  {name:'于城道奇门弟子班',    target:142800,    done:0},
-  {name:'广元二阶续费',        target:216174,    done:25143},
-  {name:'三诚弟子班',          target:250000,    done:30090},
-  {name:'万和风水弟子班15888', target:989903,    done:0},
-  {name:'云昭奇门弟子班',      target:81855,     done:23979},
-  {name:'万和八字弟子班',      target:113771,    done:0},
-  {name:'一阶+1.5阶',          target:588034,   done:22784},
-  {name:'于城道风水弟子班',    target:160310,    done:0},
-  {name:'万和风水1980',         target:40000,     done:120252},
-  {name:'云和风水',            target:150000,    done:0},
-  {name:'云昭奇门2980',        target:63057,     done:0},
-  {name:'何咏慧1880',          target:129720,   done:1730},
-  {name:'东方奇门',            target:150000,   done:0},
-  {name:'九维1990',            target:150000,   done:5484},
-  {name:'玄青奇门2680',        target:138074,   done:0},
-  {name:'于城道财养1980',      target:43718,    done:0},
-  {name:'方雄紫微',            target:40000,    done:0},
-  {name:'线下',                target:500000,   done:0},
+  {name:'朱昱二阶续费',       target:22064087,  done:46240},
+  {name:'电商',               target:2482256,    done:1251960},
+  {name:'玄青命理弟子班',     target:870366,     done:404600},
+  {name:'何咏慧弟子班',       target:1049836,    done:31365},
+  {name:'玄青奇门弟子班',     target:600000,     done:16660},
+  {name:'一阶+1.5阶',         target:588034,     done:22784},
+  {name:'广元二阶续费',       target:216174,     done:27693},
+  {name:'三诚弟子班',         target:250000,     done:40120},
+  {name:'云和风水',           target:150000,     done:0},
+  {name:'万和风水弟子班',     target:989903,     done:0},
+  {name:'何咏慧1880',         target:129720,     done:1730},
+  {name:'九维1990',           target:150000,     done:10977},
+  {name:'于城道风水弟子班',   target:160310,     done:0},
+  {name:'万和风水1980',       target:40000,      done:134828},
+  {name:'云昭奇门弟子班',     target:81855,      done:23979},
+  {name:'玄青奇门2680',       target:138074,     done:0},
+  {name:'万和八字弟子班',     target:113771,     done:0},
+  {name:'于城道奇门弟子班',   target:142800,     done:0},
+  {name:'于城道财养1980',     target:43718,      done:0},
+  {name:'方雄紫微',           target:40000,      done:0},
+  {name:'云昭奇门2980',       target:63057,      done:0},
+  {name:'线下',               target:500000,      done:0},
 ].sort((a,b)=>b.target-a.target);
 
-const w1Data = [
+const w1Targets = [
   {name:'朱昱二阶续费',     v:11415037},
   {name:'电商',             v:1001796},
   {name:'玄青命理弟子班',   v:543354},
@@ -234,139 +131,127 @@ const w1Data = [
   {name:'一阶+1.5阶',       v:125284},
   {name:'三诚弟子班',       v:80000},
   {name:'玄青奇门弟子班',   v:50000},
+  {name:'于城道奇门弟子班', v:42840},
+  {name:'万和1980',         v:40000},
+  {name:'万和八字弟子班',   v:21946},
 ].sort((a,b)=>b.v-a.v);
 
-// 1. 部门饼图
+// 1. 部门对比 - 饼图
 (function(){
   const ec = echarts.init(document.getElementById('c-dept'));
   ec.setOption({
     backgroundColor:'transparent',
-    tooltip:{trigger:'item',backgroundColor:'#091828',borderColor:'#1e3d6b',textStyle:{color:'#a0d0f0'},
-      formatter:p=>`${p.name}<br/><b style="color:#00c4f5;font-size:14px">¥${fmtN(p.value)}</b>`},
-    legend:{top:'auto',right:'auto',bottom:0,left:'center',textStyle:{color:'#5a8aaa',fontSize:11},itemWidth:12,itemHeight:8},
+    tooltip:{trigger:'item',backgroundColor:'#071828',borderColor:'#1a3a5c',textStyle:{color:'#c0e0f8'},
+      formatter:p=>`${p.name}<br/>已完成：¥${fmtN(p.value)}`},
+    legend:{top:'center',left:'center',bottom:0,textStyle:{color:'#888',fontSize:11}},
     series:[{
-      type:'pie', radius:['38%','68%'], center:['50%','44%'],
-      avoidLabelOverlap:true,
-      itemStyle:{borderRadius:6,borderColor:'#0d2448',borderWidth:2},
+      type:'pie',
+      radius:['40%','70%'],
+      center:['50%','45%'],
+      avoidLabelOverlap:false,
+      itemStyle:{borderRadius:4,borderColor:'#0c2340',borderWidth:2},
       label:{show:false},
-      emphasis:{scale:true,scaleSize:6,
-        label:{show:true,fontSize:13,fontWeight:'bold',color:'#fff'}},
+      emphasis:{label:{show:true,fontSize:14,fontWeight:'bold',color:'#fff'}},
       data:deptData.map((d,i)=>({
-        name:d.name, value:d.value,
-        itemStyle:{color:['#00c4f5','#ff9500','#a78bfa'][i]}
+        name:d.name,
+        value:d.value,
+        itemStyle:{color:[C.blue,C.orange,C.purple][i]}
       }))
     }]
   });
 })();
 
-// 2. 分周柱状图
+// 2. 分周目标 vs 完成
 (function(){
   const ec = echarts.init(document.getElementById('c-week'));
   ec.setOption({
     backgroundColor:'transparent',
-    grid:{top:28,right:16,bottom:28,left:64},
-    tooltip:{trigger:'axis',axisPointer:{type:'shadow'},
-      backgroundColor:'#091828',borderColor:'#1e3d6b',textStyle:{color:'#a0d0f0'},
-      formatter:p=>{
-        const w=weekData[p[0].dataIndex];
-        const pct=(w.done/w.target*100).toFixed(2);
-        return `<b>${w.label}</b><br/>目标：¥${fmtN(w.target)}<br/>完成：¥${fmtN(w.done)}<br/><b>完成率：${pct}%</b>`;
-      }},
-    legend:{top:2,right:8,textStyle:{color:'#4a7a9a',fontSize:10},itemWidth:10,itemHeight:7},
+    grid:{top:30,right:10,bottom:30,left:60},
+    tooltip:{trigger:'axis',axisPointer:{type:'shadow'},backgroundColor:'#071828',borderColor:'#1a3a5c',textStyle:{color:'#c0e0f8'},
+      formatter:p=>{const w=weekData[p[0].dataIndex];const pct=(w.done/w.target*100).toFixed(2);
+        return `${w.label}<br/>目标：¥${fmtN(w.target)}<br/>完成：¥${fmtN(w.done)}<br/>完成率：${pct}%`;}},
+    legend:{top:4,right:0,textStyle:{color:C.lbl,fontSize:10},itemWidth:10,itemHeight:8},
     xAxis:{type:'category',data:weekData.map(d=>d.label),
-      axisLine:{lineStyle:{color:'#1e4060'}},axisTick:{show:false},
-      axisLabel:{color:'#4a7a9a',fontSize:10}},
-    yAxis:{type:'value',
-      axisLabel:{color:'#4a7a9a',fontSize:9,formatter:v=>fmt(v)},
-      splitLine:{lineStyle:{color:'rgba(20,60,100,0.4)'}},axisLine:{show:false}},
+      axisLine:{lineStyle:{color:C.axis}},axisTick:{show:false},axisLabel:{color:C.lbl,fontSize:10}},
+    yAxis:{type:'value',axisLabel:{color:C.lbl,fontSize:10,formatter:v=>fmt(v)},
+      splitLine:{lineStyle:{color:C.grid}},axisLine:{show:false}},
     series:[
-      {name:'目标',type:'bar',barGap:'6%',barCategoryGap:'38%',barWidth:'34%',
+      {name:'目标',type:'bar',barGap:'5%',barCategoryGap:'35%',barWidth:'32%',
         data:weekData.map(d=>d.target),
-        itemStyle:{color:'rgba(0,180,255,0.10)',borderRadius:[4,4,0,0],
-          borderColor:'rgba(0,180,255,0.30)',borderWidth:1}},
-      {name:'已完成',type:'bar',barWidth:'34%',
+        itemStyle:{color:'rgba(0,180,255,0.13)',borderRadius:[3,3,0,0],borderColor:'rgba(0,180,255,0.4)',borderWidth:1}},
+      {name:'已完成',type:'bar',barWidth:'32%',
         data:weekData.map(d=>d.done),
-        itemStyle:{color:new echarts.graphic.LinearGradient(0,0,0,1,[
-          {offset:0,color:'#00c4f5'},{offset:1,color:'#0066cc'}]),borderRadius:[4,4,0,0]}}
+        itemStyle:{color:g('#00e5a0'),borderRadius:[3,3,0,0]},
+        label:{show:true,position:'top',color:'#00e5a0',fontSize:10,formatter:p=>p.value>0?'¥'+fmt(p.value):''}}
     ]
   });
 })();
 
-// 3. 各周完成率进度条
+// 3. 周进度条
 (function(){
-  const box=document.getElementById('week-prog');
-  const colors=['#00c4f5','#ff9500','#a78bfa','#00e5a0'];
+  const el=document.getElementById('week-prog');
+  const colors=[C.blue,C.green,C.purple,C.orange];
   weekData.forEach((w,i)=>{
-    const pct=(w.done/w.target*100).toFixed(1);
-    box.innerHTML+=
-      `<div class="prog-header"><span class="prog-label">${w.label}</span><span class="prog-val">${pct}%</span></div>`+
-      `<div class="prog-bg"><div class="prog-fill" style="width:${Math.min(pct,100)}%;background:${colors[i]}"></div></div>`+
-      `<div class="prog-meta">目标 ¥${fmtN(w.target)} &nbsp;·&nbsp; 已完成 ¥${fmtN(w.done)}</div>`;
+    const pct=Math.min(100,w.done/w.target*100);
+    el.innerHTML+=`<div><div class="prog-header"><span class="prog-label">${w.label}</span><span class="prog-val">¥${fmt(w.done)}</span></div><div class="prog-bg"><div class="prog-fill" style="width:${pct.toFixed(2)}%;background:${colors[i]}"></div></div><div class="prog-meta">目标 ¥${fmt(w.target)} · 完成率 ${pct.toFixed(2)}%</div></div>`;
   });
 })();
 
-// 4. 全月课程目标 vs 完成
+// 4. 全月目标 vs 完成（横向条形）
 (function(){
   const ec=echarts.init(document.getElementById('c-target'));
+  const show=courseData.slice(0,12);
+  const rev=[...show].reverse();
   ec.setOption({
     backgroundColor:'transparent',
-    grid:{top:12,right:20,bottom:22,left:168},
-    tooltip:{trigger:'axis',axisPointer:{type:'shadow'},
-      backgroundColor:'#091828',borderColor:'#1e3d6b',textStyle:{color:'#a0d0f0'},
-      formatter:p=>{
-        const c=courseData[p[0].dataIndex];
-        const pct=(c.done/c.target*100).toFixed(1);
-        return `<b>${c.name}</b><br/>目标：¥${fmtN(c.target)}<br/>完成：¥${fmtN(c.done)}<br/><b>完成率：${pct}%</b>`;
-      }},
-    xAxis:{type:'value',
-      axisLabel:{color:'#4a7a9a',fontSize:9,formatter:v=>fmt(v)},
-      splitLine:{lineStyle:{color:'rgba(20,60,100,0.4)'}},axisLine:{show:false}},
-    yAxis:{type:'category',data:courseData.map(d=>d.name),
-      axisLabel:{color:'#5a8aaa',fontSize:9},axisLine:{lineStyle:{color:'#1e4060'}}},
+    grid:{top:8,right:80,bottom:20,left:130},
+    tooltip:{trigger:'axis',axisPointer:{type:'shadow'},backgroundColor:'#071828',borderColor:'#1a3a5c',textStyle:{color:'#c0e0f8'},
+      formatter:p=>{const item=rev[p[0].dataIndex];const pct=item.target>0?(item.done/item.target*100).toFixed(1):'0';
+        return `${item.name}<br/>目标：¥${fmtN(item.target)}<br/>已完成：¥${fmtN(item.done)}<br/>完成率：${pct}%`;}},
+    legend:{top:0,right:0,textStyle:{color:C.lbl,fontSize:10},itemWidth:10,itemHeight:8},
+    yAxis:{type:'category',data:rev.map(d=>d.name),
+      axisLine:{lineStyle:{color:C.axis}},axisTick:{show:false},axisLabel:{color:C.lbl,fontSize:10}},
+    xAxis:{type:'value',axisLabel:{color:C.lbl,fontSize:9,formatter:v=>fmt(v)},
+      splitLine:{lineStyle:{color:C.grid}},axisLine:{show:false}},
     series:[
-      {name:'目标',type:'bar',barGap:'-102%',barCategoryGap:'48%',barWidth:'38%',
-        data:courseData.map(d=>d.target),
-        itemStyle:{color:'rgba(0,180,255,0.07)',borderRadius:[0,4,4,0]}},
-      {name:'已完成',type:'bar',barWidth:'38%',barCategoryGap:'48%',
-        data:courseData.map(d=>d.done),
-        itemStyle:{color:new echarts.graphic.LinearGradient(0,0,1,0,[
-          {offset:0,color:'#00c4f5'},{offset:1,color:'#00e5a0'}]),borderRadius:[0,4,4,0]}}
+      {name:'目标',type:'bar',barWidth:12,stack:'s',
+        data:rev.map(d=>d.target),
+        itemStyle:{color:'rgba(0,180,255,0.12)',borderRadius:[0,3,3,0],borderColor:'rgba(0,180,255,0.28)',borderWidth:1}},
+      {name:'已完成',type:'bar',barWidth:12,stack:'t',
+        data:rev.map(d=>d.done),
+        itemStyle:{color:gh('#00e5a0'),borderRadius:[0,3,3,0]},
+        label:{show:true,position:'right',color:C.lbl,fontSize:9,
+          formatter:p=>{const item=rev[p.dataIndex];if(!item||item.done===0)return '';
+            return (item.done/item.target*100).toFixed(1)+'%';}}}
     ]
   });
 })();
 
-// 5. TOP10 排名
+// 5. 排行榜
 (function(){
   const tbody=document.getElementById('rank-body');
-  courseData.slice(0,10).forEach((c,i)=>{
-    const pct=(c.done/c.target*100).toFixed(1);
-    const tr=document.createElement('tr');
-    const medal=i===0?'🥇':i===1?'🥈':i===2?'🥉':'';
-    tr.innerHTML=`<td>${medal||(i+1)}</td><td>${c.name}</td><td>¥${fmtN(c.target)} <span style="color:#3a6a8a;font-size:10px">(${pct}%)</span></td>`;
-    tbody.appendChild(tr);
+  courseData.slice(0,10).forEach((item,i)=>{
+    tbody.innerHTML+=`<tr><td>${i+1}</td><td>${item.name}</td><td>¥${fmtN(item.target)}</td></tr>`;
   });
 })();
 
-// 6. 第一周各课程目标
+// 6. 第1周课程目标分布
 (function(){
   const ec=echarts.init(document.getElementById('c-w1'));
   ec.setOption({
     backgroundColor:'transparent',
-    grid:{top:22,right:16,bottom:28,left:10},
-    tooltip:{trigger:'axis',axisPointer:{type:'shadow'},
-      backgroundColor:'#091828',borderColor:'#1e3d6b',textStyle:{color:'#a0d0f0'},
-      formatter:p=>`${p[0].name}<br/><b>¥${fmtN(p[0].value)}</b>`},
-    xAxis:{type:'category',data:w1Data.map(d=>d.name),
-      axisLabel:{color:'#4a7a9a',fontSize:9,rotate:22},
-      axisLine:{lineStyle:{color:'#1e4060'}}},
-    yAxis:{type:'value',
-      axisLabel:{color:'#4a7a9a',fontSize:9,formatter:v=>fmt(v)},
-      splitLine:{lineStyle:{color:'rgba(20,60,100,0.4)'}},axisLine:{show:false}},
-    series:[{type:'bar',barWidth:'52%',
-      data:w1Data.map(()=>({
-        itemStyle:{color:new echarts.graphic.LinearGradient(0,0,0,1,[
-          {offset:0,color:'#00c4f5'},{offset:1,color:'#0055bb'}])}
-      }))
+    grid:{top:10,right:16,bottom:50,left:16},
+    tooltip:{trigger:'axis',axisPointer:{type:'shadow'},backgroundColor:'#071828',borderColor:'#1a3a5c',textStyle:{color:'#c0e0f8'},
+      formatter:p=>`${p[0].name}<br/>目标流水：¥${fmtN(p[0].value)}`},
+    xAxis:{type:'category',data:w1Targets.map(d=>d.name),
+      axisLine:{lineStyle:{color:C.axis}},axisTick:{show:false},
+      axisLabel:{color:C.lbl,fontSize:10,rotate:20,interval:0}},
+    yAxis:{type:'value',axisLabel:{color:C.lbl,fontSize:10,formatter:v=>fmt(v)},
+      splitLine:{lineStyle:{color:C.grid}},axisLine:{show:false}},
+    series:[{type:'bar',barWidth:'55%',
+      data:w1Targets.map((d,i)=>({value:d.v,
+        itemStyle:{color:g(['#00d4ff','#00e5a0','#a78bfa','#ff9500','#fb7185','#34d399','#60a5fa','#fbbf24','#f87171','#818cf8','#34d399','#f472b6','#a78bfa'][i%13]),borderRadius:[3,3,0,0]}})),
+      label:{show:true,position:'top',color:'#c0e0f8',fontSize:9,formatter:p=>'¥'+fmt(p.value)}
     }]
   });
 })();
