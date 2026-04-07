@@ -58,11 +58,11 @@ body { background: #020b18; color: #e0f0ff; font-family: 'PingFang SC', 'Microso
 <body>
 <div class="header">
   <div><div class="header-title">服务中心流水数据大屏</div><div class="header-sub">实时流水监控 · 目标跟踪 · 分周分析</div></div>
-  <div class="header-right"><div>数据截至 2026-04-07</div><div class="alert">📈 时间进度 23.3% | 4月进行中 | 完成率 6.63%</div></div>
+  <div class="header-right"><div>数据截至 2026-04-07</div><div class="alert">📈 第1周（4.1-4.12）进行中 | 第1周完成率 14.59%</div></div>
 </div>
 <div class="main">
   <div class="kpi-row">
-    <div class="kpi-card"><div class="kpi-label">4月累计完成（课程+实物）</div><div class="kpi-value">2,055,491 <small>元</small></div><div class="kpi-sub">全月目标 31,013,961 元 | 完成率 6.63%</div><div class="kpi-tags"><span class="kpi-tag">第1周已填报</span><span class="kpi-tag">2-4周陆续汇总</span></div></div>
+    <div class="kpi-card"><div class="kpi-label">4月累计完成（课程+实物）</div><div class="kpi-value">2,055,491 <small>元</small></div><div class="kpi-sub">全月目标 31,013,961 元 | 第1周完成率 14.59%</div><div class="kpi-tags"><span class="kpi-tag">第1周（4.1-4.12）已填报</span><span class="kpi-tag">2-4周陆续汇总</span></div></div>
     <div class="kpi-card"><div class="kpi-label">马子强 已完成</div><div class="kpi-value">767,682 <small>元</small></div><div class="kpi-sub">课程类 531,295 | 实物 236,387</div><div class="kpi-tags"><span class="kpi-tag">占比 37.35%</span></div></div>
     <div class="kpi-card"><div class="kpi-label">陈雅文 已完成</div><div class="kpi-value">1,103,498 <small>元</small></div><div class="kpi-sub">课程类 105,460 | 实物 998,038</div><div class="kpi-tags"><span class="kpi-tag">占比 53.69%</span></div></div>
     <div class="kpi-card"><div class="kpi-label">张婧嬿 已完成</div><div class="kpi-value">184,311 <small>元</small></div><div class="kpi-sub">课程类 166,776 | 实物 17,535</div><div class="kpi-tags"><span class="kpi-tag">占比 8.97%</span></div></div>
@@ -72,9 +72,9 @@ body { background: #020b18; color: #e0f0ff; font-family: 'PingFang SC', 'Microso
   <div class="card"><div class="card-title">各周完成率</div><div class="prog-list" id="week-prog" style="margin-top:8px"></div></div>
   <div class="card col-2"><div class="card-title">全月课程目标 vs 已完成流水（元）</div><div class="chart-xl" id="c-target"></div></div>
   <div class="card"><div class="card-title">课程目标流水 TOP10</div><div style="overflow-y:auto;max-height:340px"><table class="rank-table"><thead><tr><th>#</th><th>课程</th><th>目标（元）</th></tr></thead><tbody id="rank-body"></tbody></table></div></div>
-  <div class="card col-full"><div class="card-title">4.1-4.7（第一周）各课程目标流水</div><div class="chart" id="c-w1"></div></div>
+  <div class="card col-full"><div class="card-title">4.1-4.12（第一周）各课程目标流水</div><div class="chart" id="c-w1"></div></div>
 </div>
-<div class="footer">数据来源：月流水进度.xlsx · 锚点 · 截至 2026-04-07</div>
+<div class="footer">数据来源：月流水进度.xlsx · 锚点（第22-29行周目标数据）· 截至 2026-04-07</div>
 <script>
 const fmt = v => { if (!v && v !== 0) return '—'; if (v >= 1e8) return (v/1e8).toFixed(2)+'亿'; if (v >= 1e4) return (v/1e4).toFixed(2)+'万'; return Math.round(v).toLocaleString(); };
 const fmtN = v => Math.round(v).toLocaleString('zh-CN');
@@ -89,10 +89,10 @@ const deptData = [
 ];
 
 const weekData = [
-  {label:'4.1-4.7',  target:14089307, done:2055491},
-  {label:'4.8-4.14',target:8869307,  done:0},
-  {label:'4.15-4.21',target:5359582,  done:0},
-  {label:'4.22-4.30',target:2695765,  done:0},
+  {label:'4.1-4.12',  target:14089307, done:2055491},
+  {label:'4.13-4.19',target:8869307,  done:0},
+  {label:'4.20-4.26',target:5359582,  done:0},
+  {label:'4.27-4.30',target:2695765,  done:0},
 ];
 
 const courseData = [
