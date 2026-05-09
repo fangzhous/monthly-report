@@ -58,21 +58,21 @@ body { background: #020b18; color: #e0f0ff; font-family: 'PingFang SC', 'Microso
 <body>
 <div class="header">
   <div><div class="header-title">服务中心流水数据大屏</div><div class="header-sub">实时流水监控 · 目标跟踪 · 分周分析</div></div>
-  <div class="header-right"><div>数据截至 2026-04-30</div><div class="alert">📈 全月完成率 113.21%（超额完成）</div></div>
+  <div class="header-right"><div>数据截至 2026-05-09</div><div class="alert">📈 全月完成率 0.00%（超额完成）</div></div>
 </div>
 <div class="main">
   <div class="kpi-row">
-    <div class="kpi-card"><div class="kpi-label">4月累计完成（课程+实物）</div><div class="kpi-value">35,110,881 <small>元</small></div><div class="kpi-sub">全月目标 31,013,961 元 | 第4周完成率 115.04%</div><div class="kpi-tags"><span class="kpi-tag">第4周（4.27-4.30）已完成</span></div></div>
-    <div class="kpi-card"><div class="kpi-label">马子强 已完成</div><div class="kpi-value">29,128,562 <small>元</small></div><div class="kpi-sub">课程类 26,838,183 | 实物 2,290,379</div><div class="kpi-tags"><span class="kpi-tag">占比 82.96%</span></div></div>
-    <div class="kpi-card"><div class="kpi-label">陈雅文 已完成</div><div class="kpi-value">3,877,020 <small>元</small></div><div class="kpi-sub">课程类 2,290,018 | 实物 1,587,002</div><div class="kpi-tags"><span class="kpi-tag">占比 11.04%</span></div></div>
-    <div class="kpi-card"><div class="kpi-label">张婧嬿 已完成</div><div class="kpi-value">2,105,299 <small>元</small></div><div class="kpi-sub">课程类 1,016,601 | 实物 351,978</div><div class="kpi-tags"><span class="kpi-tag">占比 6.00%</span></div></div>
+    <div class="kpi-card"><div class="kpi-label">4月累计完成（课程+实物）</div><div class="kpi-value">820,513 <small>元</small></div><div class="kpi-sub">全月目标 31,013,961 元 | 第4周完成率 115.04%</div><div class="kpi-tags"><span class="kpi-tag">第1周（5.1-5.8）已完成</span><span class="kpi-tag">2-4周陆续汇总</span></div></div>
+    <div class="kpi-card"><div class="kpi-label">马子强 已完成</div><div class="kpi-value">820,513 <small>元</small></div><div class="kpi-sub">课程类 3,489,362 | 实物 0</div><div class="kpi-tags"><span class="kpi-tag">占比 100.00%</span></div></div>
+    <div class="kpi-card"><div class="kpi-label">陈雅文 已完成</div><div class="kpi-value">205,125 <small>元</small></div><div class="kpi-sub">课程类 125,552 | 实物 79,573</div><div class="kpi-tags"><span class="kpi-tag">占比 63.97%</span></div></div>
+    <div class="kpi-card"><div class="kpi-label">张婧嬿 已完成</div><div class="kpi-value">205,125 <small>元</small></div><div class="kpi-sub">课程类 125,552 | 实物 79,573</div><div class="kpi-tags"><span class="kpi-tag">占比 63.97%</span></div></div>
   </div>
   <div class="card"><div class="card-title">部门已完成流水对比</div><div class="chart" id="c-dept"></div></div>
   <div class="card"><div class="card-title">分周目标 vs 已完成</div><div class="chart" id="c-week"></div></div>
   <div class="card"><div class="card-title">各周完成率</div><div class="prog-list" id="week-prog" style="margin-top:8px"></div></div>
   <div class="card col-2"><div class="card-title">全月课程目标 vs 已完成流水（元）</div><div class="chart-xl" id="c-target"></div></div>
   <div class="card"><div class="card-title">课程目标流水 TOP10</div><div style="overflow-y:auto;max-height:340px"><table class="rank-table"><thead><tr><th>#</th><th>课程</th><th>目标（元）</th></tr></thead><tbody id="rank-body"></tbody></table></div></div>
-  <div class="card col-full"><div class="card-title">4.27-4.30（第四周）各课程目标流水</div><div class="chart" id="c-w1"></div></div>
+  <div class="card col-full"><div class="card-title">5月各课程目标（收集中）</div><div class="chart" id="c-w1"></div></div>
 </div>
 <div class="footer">数据来源：月流水进度.xlsx（锚点sheet）· 截至 2026-04-18</div>
 <script>
@@ -83,58 +83,47 @@ const g = (c,d) => new echarts.graphic.LinearGradient(0,0,0,1,[{offset:0,color:c
 const gh = (c,d) => new echarts.graphic.LinearGradient(1,0,0,0,[{offset:0,color:c},{offset:1,color:c+(d||'44')}]);
 
 const deptData = [
-  {name:'马子强', value:29128562},
-  {name:'陈雅文', value:3877020},
-  {name:'张婧嬿', value:2105299},
+  {name:'马子强', value:524903},
+  {name:'陈雅文', value:205125},
+  {name:'张婧嬿', value:90485},
 ];
 
 const weekData = [
-  {label:'4.1-4.12',  target:14089307, done:16877086},
-  {label:'4.13-4.19',target:8869307,  done:10117325},
-  {label:'4.20-4.26',target:5359582,  done:5015391},
-  {label:'4.27-4.30',target:2695765,  done:3101079},
+  {label:'5.1-5.8',   target:1148832,  done:820513},
+  {label:'5.9-5.15', target:10084626, done:0},
+  {label:'5.16-5.22',target:4842051,  done:0},
+  {label:'5.23-5.31',target:3010862,  done:0},
 ];
 
 const courseData = [
-  {name:'朱昱二阶续费', target:22064087, done:23002322},
-  {name:'玄青命理弟子班', target:870366, done:1170774},
-  {name:'何咏慧弟子班', target:1049836, done:1184339},
-  {name:'电商', target:2482256, done:4229359},
-  {name:'玄青奇门弟子班', target:600000, done:597295},
-  {name:'于城道奇门弟子班', target:142800, done:188700},
-  {name:'广元二阶续费', target:216174, done:304641},
-  {name:'三诚弟子班', target:250000, done:258400},
-  {name:'万和风水弟子班15888', target:989903, done:1323490},
-  {name:'云昭奇门弟子班', target:81855, done:65711},
-  {name:'万和八字进阶班1980', target:113771, done:136323},
-  {name:'一阶+1.5阶', target:588034, done:489336},
-  {name:'于城道风水弟子班', target:160310, done:219351},
-  {name:'万和风水1980', target:40000, done:165802},
-  {name:'云和风水', target:150000, done:581822},
-  {name:'云昭奇门2980', target:63057, done:19194},
-  {name:'何咏慧1880', target:129720, done:81310},
-  {name:'东方奇门', target:150000, done:31140},
-  {name:'九维1990', target:150000, done:171369},
-  {name:'玄青奇门2680', target:138074, done:93708},
-  {name:'于城道财养1980', target:43718, done:5466},
-  {name:'方雄紫微', target:40000, done:0},
-  {name:'线下', target:500000, done:736720},
+  {name:'朱昱二阶续费', target:8392290, done:138576},
+  {name:'电商', target:4753732, done:271421},
+  {name:'何咏慧弟子班', target:1213704, done:106420},
+  {name:'线下', target:1000000, done:0},
+  {name:'玄青奇门弟子班', target:840000, done:23460},
+  {name:'一阶+1.5阶', target:665985, done:42230},
+  {name:'何咏慧1880', target:356471, done:3460},
+  {name:'玄青奇门2680', target:287500, done:24182},
+  {name:'观复姓名学', target:267500, done:0},
+  {name:'贾老师面相1980', target:238505, done:7288},
+  {name:'东方奇门', target:231660, done:6920},
+  {name:'方雄紫微', target:227500, done:0},
+  {name:'九维1990', target:224024, done:5493},
+  {name:'于城道财养1980', target:217500, done:3644},
+  {name:'坤平逆推时柱弟子班', target:120000, done:0},
+  {name:'三诚弟子班', target:50000, done:0},
 ].sort((a,b)=>b.target-a.target);
 
 // w2Targets: 月完成流水（实际完成量，用于W2图表展示）
 const w2Targets = [
-  {name:'朱昱二阶续费', v:1264665},
-  {name:'电商', v:704838},
-  {name:'何咏慧弟子班', v:156381},
-  {name:'线下', v:150000},
-  {name:'玄青奇门弟子班', v:130997},
-  {name:'玄青命理弟子班', v:74970},
-  {name:'一阶+1.5阶', v:51299},
-  {name:'于城道奇门弟子班', v:50000},
-  {name:'万和风水1980', v:43718},
-  {name:'万和八字进阶班', v:40000},
-  {name:'广元二阶续费', v:14617},
-  {name:'于城道财养1980', v:14280},
+  {name:'朱昱二阶续费', v:194741},
+  {name:'电商', v:117500},
+  {name:'玄青奇门2680', v:287500},
+  {name:'贾老师面相1980', v:238505},
+  {name:'于城道财养1980', v:217500},
+  {name:'一阶+1.5阶', v:63086},
+  {name:'玄青奇门弟子班', v:20000},
+  {name:'三诚弟子班', v:10000},
 ].sort((a,b)=>b.v-a.v);
 
 // 1. 部门对比 - 饼图
