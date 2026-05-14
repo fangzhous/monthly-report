@@ -58,23 +58,23 @@ body { background: #020b18; color: #e0f0ff; font-family: 'PingFang SC', 'Microso
 <body>
 <div class="header">
   <div><div class="header-title">服务中心流水数据大屏</div><div class="header-sub">实时流水监控 · 目标跟踪 · 分周分析</div></div>
-  <div class="header-right"><div>数据截至 2026-05-09</div><div class="alert">📈 全月完成率 4.30%</div></div>
+  <div class="header-right"><div>数据截至 2026-05-14</div><div class="alert">📈 全月完成率 24.08%</div></div>
 </div>
 <div class="main">
   <div class="kpi-row">
-    <div class="kpi-card"><div class="kpi-label">5月累计完成（课程+实物）</div><div class="kpi-value">820,513 <small>元</small></div><div class="kpi-sub">全月目标 19,086,371 元 | 第1周完成率 71.42%</div><div class="kpi-tags"><span class="kpi-tag">第1周（5.1-5.8）已完成</span><span class="kpi-tag">2-4周陆续汇总</span></div></div>
-    <div class="kpi-card"><div class="kpi-label">马子强 已完成</div><div class="kpi-value">524,903 <small>元</small></div><div class="kpi-sub">课程类 374,720 | 实物 150,183</div><div class="kpi-tags"><span class="kpi-tag">占比 63.97%</span></div></div>
-    <div class="kpi-card"><div class="kpi-label">陈雅文 已完成</div><div class="kpi-value">205,125 <small>元</small></div><div class="kpi-sub">课程类 125,552 | 实物 79,573</div><div class="kpi-tags"><span class="kpi-tag">占比 25.00%</span></div></div>
-    <div class="kpi-card"><div class="kpi-label">张婧嬿 已完成</div><div class="kpi-value">90,485 <small>元</small></div><div class="kpi-sub">课程类 48,820 | 实物 41,665</div><div class="kpi-tags"><span class="kpi-tag">占比 11.03%</span></div></div>
+    <div class="kpi-card"><div class="kpi-label">5月累计完成（课程+实物）</div><div class="kpi-value">4,596,347 <small>元</small></div><div class="kpi-sub">全月目标 19,086,371 元 | 第1-2周完成率 24.08%</div><div class="kpi-tags"><span class="kpi-tag">第1-2周已完成</span><span class="kpi-tag">3-4周陆续汇总</span></div></div>
+    <div class="kpi-card"><div class="kpi-label">马子强 已完成</div><div class="kpi-value">3,586,351 <small>元</small></div><div class="kpi-sub">课程类 2,825,919 | 实物 760,432</div><div class="kpi-tags"><span class="kpi-tag">占比 78.03%</span></div></div>
+    <div class="kpi-card"><div class="kpi-label">陈雅文 已完成</div><div class="kpi-value">700,499 <small>元</small></div><div class="kpi-sub">课程类 206,608 | 实物 493,891</div><div class="kpi-tags"><span class="kpi-tag">占比 15.24%</span></div></div>
+    <div class="kpi-card"><div class="kpi-label">张婧嬿 已完成</div><div class="kpi-value">309,497 <small>元</small></div><div class="kpi-sub">课程类 254,204 | 实物 55,293</div><div class="kpi-tags"><span class="kpi-tag">占比 6.73%</span></div></div>
   </div>
   <div class="card"><div class="card-title">部门已完成流水对比</div><div class="chart" id="c-dept"></div></div>
   <div class="card"><div class="card-title">分周目标 vs 已完成</div><div class="chart" id="c-week"></div></div>
   <div class="card"><div class="card-title">各周完成率</div><div class="prog-list" id="week-prog" style="margin-top:8px"></div></div>
   <div class="card col-2"><div class="card-title">全月课程目标 vs 已完成流水（元）</div><div class="chart-xl" id="c-target"></div></div>
   <div class="card"><div class="card-title">课程目标流水 TOP10</div><div style="overflow-y:auto;max-height:340px"><table class="rank-table"><thead><tr><th>#</th><th>课程</th><th>目标（元）</th></tr></thead><tbody id="rank-body"></tbody></table></div></div>
-  <div class="card col-full"><div class="card-title">5月各课程目标（收集中）</div><div class="chart" id="c-w1"></div></div>
+  <div class="card col-full"><div class="card-title">5月W2各课程目标流水（收集中）</div><div class="chart" id="c-w1"></div></div>
 </div>
-<div class="footer">数据来源：月流水进度.xlsx（锚点sheet）· 截至 2026-05-09</div>
+<div class="footer">数据来源：月流水进度.xlsx（锚点sheet）· 截至 2026-05-14</div>
 <script>
 const fmt = v => { if (!v && v !== 0) return '—'; if (v >= 1e8) return (v/1e8).toFixed(2)+'亿'; if (v >= 1e4) return (v/1e4).toFixed(2)+'万'; return Math.round(v).toLocaleString(); };
 const fmtN = v => Math.round(v).toLocaleString('zh-CN');
@@ -83,48 +83,49 @@ const g = (c,d) => new echarts.graphic.LinearGradient(0,0,0,1,[{offset:0,color:c
 const gh = (c,d) => new echarts.graphic.LinearGradient(1,0,0,0,[{offset:0,color:c},{offset:1,color:c+(d||'44')}]);
 
 const deptData = [
-  {name:'马子强', value:524903},
-  {name:'陈雅文', value:205125},
-  {name:'张婧嬿', value:90485},
+  {name:'马子强', value:3586351},
+  {name:'陈雅文', value:700499},
+  {name:'张婧嬿', value:309497},
 ];
 
 const weekData = [
-  {label:'5.1-5.8',   target:1148832,  done:820513},
-  {label:'5.9-5.15', target:10084626, done:0},
-  {label:'5.16-5.22',target:4842051,  done:0},
-  {label:'5.23-5.31',target:3010862,  done:0},
+  {label:'5.1-5.10',  target:1148832,  done:1143549},
+  {label:'5.11-5.17',target:10084626, done:3452798},
+  {label:'5.18-5.24',target:4842051,  done:0},
+  {label:'5.25-5.31',target:3010862,  done:0},
 ];
 
 const courseData = [
-  {name:'朱昱二阶续费', target:8392290, done:138576},
-  {name:'电商', target:4753732, done:271421},
-  {name:'何咏慧弟子班', target:1213704, done:106420},
+  {name:'朱昱二阶续费', target:8392290, done:2279897},
+  {name:'电商', target:4753732, done:1309616},
+  {name:'何咏慧弟子班', target:1213704, done:329545},
   {name:'线下', target:1000000, done:0},
-  {name:'玄青奇门弟子班', target:840000, done:23460},
-  {name:'一阶+1.5阶', target:665985, done:42230},
+  {name:'玄青奇门弟子班', target:840000, done:178602},
+  {name:'一阶+1.5阶', target:665985, done:119242},
   {name:'何咏慧1880', target:356471, done:3460},
-  {name:'玄青奇门2680', target:287500, done:24182},
-  {name:'观复姓名学', target:267500, done:0},
-  {name:'贾老师面相1980', target:238505, done:7288},
-  {name:'东方奇门', target:231660, done:6920},
+  {name:'玄青奇门2680', target:287500, done:62350},
+  {name:'观复姓名学', target:267500, done:1362},
+  {name:'贾老师面相1980', target:238505, done:23686},
+  {name:'东方紫微', target:231660, done:6920},
   {name:'方雄紫微', target:227500, done:0},
-  {name:'九维1990', target:224024, done:5493},
-  {name:'于城道财养1980', target:217500, done:3644},
+  {name:'九维1990', target:224024, done:8419},
+  {name:'于城道财养1980', target:217500, done:12754},
   {name:'坤平逆推时柱弟子班', target:120000, done:0},
-  {name:'三诚弟子班', target:50000, done:0},
+  {name:'三诚弟子班', target:50000, done:30090},
 ].sort((a,b)=>b.target-a.target);
 
-// w2Targets: 月完成流水（实际完成量，用于W2图表展示）
+// w2Targets: W2各课程目标（锚点A-C列70-78行）+ W2实际完成
 const w2Targets = [
-  {name:'朱昱二阶续费', v:194741},
-  {name:'电商', v:117500},
-  {name:'玄青奇门2680', v:287500},
-  {name:'贾老师面相1980', v:238505},
-  {name:'于城道财养1980', v:217500},
-  {name:'一阶+1.5阶', v:63086},
-  {name:'玄青奇门弟子班', v:20000},
-  {name:'三诚弟子班', v:10000},
-].sort((a,b)=>b.v-a.v);
+  {name:'朱昱二阶续费',    target:6305008, actual:2279897},
+  {name:'电商',           target:1976199, actual:1309616},
+  {name:'何咏慧弟子班12800',target:510842, actual:0},
+  {name:'玄青奇门弟子班9800',target:440000, actual:0},
+  {name:'东方奇门',       target:231660, actual:6920},
+  {name:'方雄紫微',       target:227500, actual:0},
+  {name:'何咏慧1880',     target:193750, actual:3460},
+  {name:'一阶+1.5阶',    target:179667, actual:119242},
+  {name:'三诚弟子班11800', target:20000, actual:0},
+].sort((a,b)=>b.target-a.target);
 
 // 1. 部门对比 - 饼图
 (function(){
@@ -229,24 +230,32 @@ const w2Targets = [
   });
 })();
 
-// 6. 第二周课程目标流水分布
+// 6. W2各课程目标 vs 已完成
 (function(){
   const ec=echarts.init(document.getElementById('c-w1'));
   ec.setOption({
     backgroundColor:'transparent',
-    grid:{top:10,right:16,bottom:50,left:16},
+    grid:{top:10,right:80,bottom:50,left:16},
     tooltip:{trigger:'axis',axisPointer:{type:'shadow'},backgroundColor:'#071828',borderColor:'#1a3a5c',textStyle:{color:'#c0e0f8'},
-      formatter:p=>`${p[0].name}<br/>目标流水：¥${fmtN(p[0].value)}`},
+      formatter:p=>{const item=w2Targets[p[0].dataIndex];const pct=item.target>0?(item.actual/item.target*100).toFixed(1):'0';
+        return `${item.name}<br/>目标：¥${fmtN(item.target)}<br/>已完成：¥${fmtN(item.actual)}<br/>完成率：${pct}%`;}},
+    legend:{top:0,right:60,textStyle:{color:C.lbl,fontSize:10},itemWidth:10,itemHeight:8},
     xAxis:{type:'category',data:w2Targets.map(d=>d.name),
       axisLine:{lineStyle:{color:C.axis}},axisTick:{show:false},
-      axisLabel:{color:C.lbl,fontSize:10,rotate:20,interval:0}},
+      axisLabel:{color:C.lbl,fontSize:9,rotate:25,interval:0}},
     yAxis:{type:'value',axisLabel:{color:C.lbl,fontSize:10,formatter:v=>fmt(v)},
       splitLine:{lineStyle:{color:C.grid}},axisLine:{show:false}},
-    series:[{type:'bar',barWidth:'55%',
-      data:w2Targets.map((d,i)=>({value:d.v,
-        itemStyle:{color:g(['#00d4ff','#00e5a0','#a78bfa','#ff9500','#fb7185','#34d399','#60a5fa','#fbbf24','#f87171','#818cf8','#34d399','#f472b6','#a78bfa'][i%13]),borderRadius:[3,3,0,0]}})),
-      label:{show:true,position:'top',color:'#c0e0f8',fontSize:9,formatter:p=>'¥'+fmt(p.value)}
-    }]
+    series:[
+      {name:'目标',type:'bar',barWidth:'40%',barGap:'8%',
+        data:w2Targets.map(d=>d.target),
+        itemStyle:{color:'rgba(0,180,255,0.15)',borderRadius:[3,3,0,0],borderColor:'rgba(0,180,255,0.35)',borderWidth:1}},
+      {name:'已完成',type:'bar',barWidth:'40%',
+        data:w2Targets.map(d=>d.actual),
+        itemStyle:{color:gh('#00e5a0'),borderRadius:[3,3,0,0]},
+        label:{show:true,position:'right',color:C.lbl,fontSize:9,
+          formatter:p=>{const item=w2Targets[p.dataIndex];if(!item||item.actual===0)return '';
+            return (item.actual/item.target*100).toFixed(0)+'%';}}}
+    ]
   });
 })();
 </script>
