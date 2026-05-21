@@ -72,7 +72,7 @@ body { background: #020b18; color: #e0f0ff; font-family: 'PingFang SC', 'Microso
   <div class="card"><div class="card-title">各周完成率</div><div class="prog-list" id="week-prog" style="margin-top:8px"></div></div>
   <div class="card col-2"><div class="card-title">全月课程目标 vs 已完成流水（元）</div><div class="chart-xl" id="c-target"></div></div>
   <div class="card"><div class="card-title">课程目标流水 TOP10</div><div style="overflow-y:auto;max-height:340px"><table class="rank-table"><thead><tr><th>#</th><th>课程</th><th>目标（元）</th></tr></thead><tbody id="rank-body"></tbody></table></div></div>
-  <div class="card col-full"><div class="card-title">5月W2各课程目标流水（收集中）</div><div class="chart" id="c-w1"></div></div>
+  <div class="card col-full"><div class="card-title">5月W3各课程目标流水（元）</div><div class="chart" id="c-w1"></div></div>
 </div>
 <div class="footer">数据来源：月流水进度.xlsx（锚点sheet）· 截至 2026-05-21</div>
 <script>
@@ -115,16 +115,18 @@ const courseData = [
 ].sort((a,b)=>b.target-a.target);
 
 // w2Targets: W2各课程目标（锚点A-C列70-78行）+ 实际完成
-const w2Targets = [
-  {name:'朱昱二阶续费',     target:6305008, actual:6344130},
-  {name:'电商',            target:1976199, actual:3095935},
-  {name:'玄青奇门弟子班9800',target:440000, actual:486812},
-  {name:'何咏慧弟子班12800',target:510842,  actual:190315},
-  {name:'一阶+1.5阶',     target:179667,  actual:174553},
-  {name:'方雄紫微',        target:227500,  actual:23686},
-  {name:'东方奇门',        target:231660,  actual:0},
-  {name:'何咏慧1880',      target:193750, actual:0},
-  {name:'三诚弟子班11800',  target:20000,  actual:30090},
+const w3Targets = [
+  {name:'电商',             target:2131373, actual:717986},
+  {name:'朱昱二阶续费',     target:1182838, actual:925725},
+  {name:'何咏慧弟子班12800',target:568553,  actual:5526},
+  {name:'观复姓名学',       target:267500,  actual:0},
+  {name:'玄青奇门弟子班9800',target:220000, actual:157590},
+  {name:'一阶+1.5阶',     target:219066,  actual:34340},
+  {name:'何咏慧1880',      target:162721, actual:1730},
+  {name:'坤平逆推时柱弟子班',target:80000,  actual:0},
+  {name:'玄青奇门2680',   target:0,        actual:7398},
+  {name:'贾老师面相1980', target:0,        actual:1822},
+  {name:'方雄紫微',       target:0,         actual:7288},
 ].sort((a,b)=>b.target-a.target);
 
 // 1. 部门对比 - 饼图
@@ -237,20 +239,20 @@ const w2Targets = [
     backgroundColor:'transparent',
     grid:{top:10,right:80,bottom:50,left:16},
     tooltip:{trigger:'axis',axisPointer:{type:'shadow'},backgroundColor:'#071828',borderColor:'#1a3a5c',textStyle:{color:'#c0e0f8'},
-      formatter:p=>{const item=w2Targets[p[0].dataIndex];const pct=item.target>0?(item.actual/item.target*100).toFixed(1):'0';
+      formatter:p=>{const item=w3Targets[p[0].dataIndex];const pct=item.target>0?(item.actual/item.target*100).toFixed(1):'0';
         return `${item.name}<br/>目标：¥${fmtN(item.target)}<br/>已完成：¥${fmtN(item.actual)}<br/>完成率：${pct}%`;}},
     legend:{top:0,right:60,textStyle:{color:C.lbl,fontSize:10},itemWidth:10,itemHeight:8},
-    xAxis:{type:'category',data:w2Targets.map(d=>d.name),
+    xAxis:{type:'category',data:w3Targets.map(d=>d.name),
       axisLine:{lineStyle:{color:C.axis}},axisTick:{show:false},
       axisLabel:{color:C.lbl,fontSize:9,rotate:25,interval:0}},
     yAxis:{type:'value',axisLabel:{color:C.lbl,fontSize:10,formatter:v=>fmt(v)},
       splitLine:{lineStyle:{color:C.grid}},axisLine:{show:false}},
     series:[
       {name:'目标',type:'bar',barWidth:'40%',barGap:'8%',
-        data:w2Targets.map(d=>d.target),
+        data:w3Targets.map(d=>d.target),
         itemStyle:{color:'rgba(0,180,255,0.15)',borderRadius:[3,3,0,0],borderColor:'rgba(0,180,255,0.35)',borderWidth:1}},
       {name:'已完成',type:'bar',barWidth:'40%',
-        data:w2Targets.map(d=>d.actual),
+        data:w3Targets.map(d=>d.actual),
         itemStyle:{color:gh('#00e5a0'),borderRadius:[3,3,0,0]},
         label:{show:true,position:'right',color:C.lbl,fontSize:9,
           formatter:p=>{const item=w2Targets[p.dataIndex];if(!item||item.actual===0)return '';
