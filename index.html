@@ -255,7 +255,7 @@ const w3Targets = [
         data:w3Targets.map(d=>d.actual),
         itemStyle:{color:gh('#00e5a0'),borderRadius:[3,3,0,0]},
         label:{show:true,position:'right',color:C.lbl,fontSize:9,
-          formatter:p=>{const item=w2Targets[p.dataIndex];if(!item||item.actual===0)return '';
+          formatter:p=>{const item=w3Targets[p.dataIndex];if(!item||item.actual===0)return '';
             return (item.actual/item.target*100).toFixed(0)+'%';}}}
     ]
   });
