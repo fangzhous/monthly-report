@@ -58,14 +58,14 @@ body { background: #020b18; color: #e0f0ff; font-family: 'PingFang SC', 'Microso
 <body>
 <div class="header">
   <div><div class="header-title">服务中心流水数据大屏</div><div class="header-sub">实时流水监控 · 目标跟踪 · 分周分析</div></div>
-  <div class="header-right"><div>数据截至 2026-05-18</div><div class="alert">📈 全月完成率 58.26%</div></div>
+  <div class="header-right"><div>数据截至 2026-05-21</div><div class="alert">📈 全月完成率 72.23%</div></div>
 </div>
 <div class="main">
   <div class="kpi-row">
-    <div class="kpi-card"><div class="kpi-label">5月累计完成（课程+实物）</div><div class="kpi-value">11,119,157 <small>元</small></div><div class="kpi-sub">全月目标 19,086,371 元 | 完成率 58.26%</div><div class="kpi-tags"><span class="kpi-tag">W1-W2已完成</span><span class="kpi-tag">W3-W4数据收集中</span></div></div>
-    <div class="kpi-card"><div class="kpi-label">马子强 已完成</div><div class="kpi-value">9,029,945 <small>元</small></div><div class="kpi-sub">课程类 7,335,555 | 实物 1,694,390</div><div class="kpi-tags"><span class="kpi-tag">占比 81.21%</span></div></div>
-    <div class="kpi-card"><div class="kpi-label">陈雅文 已完成</div><div class="kpi-value">770,570 <small>元</small></div><div class="kpi-sub">课程类 221,350 | 实物 549,220</div><div class="kpi-tags"><span class="kpi-tag">占比 6.93%</span></div></div>
-    <div class="kpi-card"><div class="kpi-label">张婧嬿 已完成</div><div class="kpi-value">1,318,642 <small>元</small></div><div class="kpi-sub">课程类 605,242 | 实物 713,400</div><div class="kpi-tags"><span class="kpi-tag">占比 11.86%</span></div></div>
+    <div class="kpi-card"><div class="kpi-label">5月累计完成（课程+实物）</div><div class="kpi-value">13,785,923 <small>元</small></div><div class="kpi-sub">全月目标 19,086,371 元 | 完成率 72.23%</div><div class="kpi-tags"><span class="kpi-tag">W1-W2已完成</span><span class="kpi-tag">W3-W4数据收集中</span></div></div>
+    <div class="kpi-card"><div class="kpi-label">马子强 已完成</div><div class="kpi-value">11,049,670 <small>元</small></div><div class="kpi-sub">课程类 8,455,078 | 实物 2,594,592</div><div class="kpi-tags"><span class="kpi-tag">占比 80.15%</span></div></div>
+    <div class="kpi-card"><div class="kpi-label">陈雅文 已完成</div><div class="kpi-value">1,042,319 <small>元</small></div><div class="kpi-sub">课程类 332,821 | 实物 709,498</div><div class="kpi-tags"><span class="kpi-tag">占比 7.56%</span></div></div>
+    <div class="kpi-card"><div class="kpi-label">张婧嬿 已完成</div><div class="kpi-value">1,693,934 <small>元</small></div><div class="kpi-sub">课程类 799,110 | 实物 894,824</div><div class="kpi-tags"><span class="kpi-tag">占比 12.29%</span></div></div>
   </div>
   <div class="card"><div class="card-title">部门已完成流水对比</div><div class="chart" id="c-dept"></div></div>
   <div class="card"><div class="card-title">分周目标 vs 已完成</div><div class="chart" id="c-week"></div></div>
@@ -74,7 +74,7 @@ body { background: #020b18; color: #e0f0ff; font-family: 'PingFang SC', 'Microso
   <div class="card"><div class="card-title">课程目标流水 TOP10</div><div style="overflow-y:auto;max-height:340px"><table class="rank-table"><thead><tr><th>#</th><th>课程</th><th>目标（元）</th></tr></thead><tbody id="rank-body"></tbody></table></div></div>
   <div class="card col-full"><div class="card-title">5月W2各课程目标流水（收集中）</div><div class="chart" id="c-w1"></div></div>
 </div>
-<div class="footer">数据来源：月流水进度.xlsx（锚点sheet）· 截至 2026-05-18</div>
+<div class="footer">数据来源：月流水进度.xlsx（锚点sheet）· 截至 2026-05-21</div>
 <script>
 const fmt = v => { if (!v && v !== 0) return '—'; if (v >= 1e8) return (v/1e8).toFixed(2)+'亿'; if (v >= 1e4) return (v/1e4).toFixed(2)+'万'; return Math.round(v).toLocaleString(); };
 const fmtN = v => Math.round(v).toLocaleString('zh-CN');
@@ -83,21 +83,21 @@ const g = (c,d) => new echarts.graphic.LinearGradient(0,0,0,1,[{offset:0,color:c
 const gh = (c,d) => new echarts.graphic.LinearGradient(1,0,0,0,[{offset:0,color:c},{offset:1,color:c+(d||'44')}]);
 
 const deptData = [
-  {name:'马子强', value:9029945},
-  {name:'陈雅文', value:770570},
-  {name:'张婧嬿', value:1318642},
+  {name:'马子强', value:11049670},
+  {name:'陈雅文', value:1042319},
+  {name:'张婧嬿', value:1693934},
 ];
 
 const weekData = [
-  {label:'5.1-5.10',  target:1148832,  done:1140088},
-  {label:'5.11-5.17',target:10084626, done:9979069},
-  {label:'5.18-5.24',target:4842051,  done:0},
-  {label:'5.25-5.31',target:3010862,  done:0},
+  {label:'5.1-5.10',  target:1148832,  done:126725},
+  {label:'5.11-5.17',target:10084626, done:631859},
+  {label:'5.18-5.24',target:4842051,  done:7413937},
+  {label:'5.25-5.31',target:3010862,  done:1034813},
 ];
 
 const courseData = [
-  {name:'朱昱二阶续费', target:8392290, done:6542254},
-  {name:'电商', target:4753732, done:2957010},
+  {name:'朱昱二阶续费', target:8392290, done:7229590},
+  {name:'电商', target:4753732, done:1976199},
   {name:'何咏慧弟子班', target:1213704, done:425085},
   {name:'线下', target:1000000, done:0},
   {name:'玄青奇门弟子班', target:840000, done:501942},
